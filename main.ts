@@ -167,7 +167,7 @@ function processDrop(
 ) {
 	const sourceLineNum = parseInt(event.dataTransfer.getData("line"), 10);
 	// @ts-ignore
-	const targetLinePos = event.target.cmView.posAtStart;
+	const targetLinePos = event.target.cmView.view.posAtStart;
 
 	const view = app.workspace.getActiveViewOfType(MarkdownView);
 
@@ -176,7 +176,7 @@ function processDrop(
 	// @ts-ignore
 	const sourceEditor: EditorView = view.editor.cm;
 	// @ts-ignore
-	const targetEditor: EditorView = event.target.cmView.editorView;
+	const targetEditor: EditorView = event.target.cmView.view.editorView;
 
 	const targetLine = targetEditor.state.doc.lineAt(targetLinePos);
 
@@ -359,7 +359,7 @@ function buildLineDecorations(
 function highlightWholeItem(app: App, target: Element) {
 	try {
 		// @ts-ignore
-		const editor = target.cmView.editorView;
+		const editor = target.cmView.view.editorView;
 
 		// get all sub-items for current line
 		const line = DOMtoLine(target.closest(".cm-line"), editor);
@@ -436,7 +436,7 @@ export default class DragNDropPlugin extends Plugin {
 					processDragOver(line as HTMLElement, event.clientX);
 
 					// @ts-ignore
-					const editor = event.target.cmView.editorView;
+					const editor = event.target.cmView.view.editorView;
 					editor.dispatch({});
 				}
 				event.preventDefault();
